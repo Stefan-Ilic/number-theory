@@ -14,5 +14,5 @@ steps:
   displayName: Restore
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: Build
-- script: dotnet test --configuration $(buildConfiguration)
+- script: dotnet test
   displayName: Test
