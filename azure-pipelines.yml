@@ -23,3 +23,39 @@ jobs:
     inputs:
       testRunner: VSTest
       testResultsFiles: '**/*.trx'
+
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet restore
+    displayName: Restore
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: Build
+  - script: dotnet test Tests --logger trx --collect "Code coverage"
+    displayName: Test
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'
+
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  variables:
+    buildConfiguration: 'Release'
+
+  steps:
+  - script: dotnet restore
+    displayName: Restore
+  - script: dotnet build --configuration $(buildConfiguration)
+    displayName: Build
+  - script: dotnet test Tests --logger trx --collect "Code coverage"
+    displayName: Test
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'
