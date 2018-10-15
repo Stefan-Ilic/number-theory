@@ -10,18 +10,23 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2
+- environment: |
 displayname: Restore
+task: DotNetCoreCLI@2
   inputs:
     command: restore
     arguments: '--configuration $(buildConfiguration)'
-- task: DotNetCoreCLI@2
+
+- environment: |
 displayname: Build
+task: DotNetCoreCLI@2
 inputs:
   command: build
   arguments: '--configuration $(buildConfiguration)'
-- task: DotNetCoreCLI@2
+
+- environment: |
 displayname: Tests
+task: DotNetCoreCLI@2
 inputs:
   command: test
   projects: '**/*Tests/*.csproj'
