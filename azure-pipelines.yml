@@ -10,24 +10,9 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- environment: |
-displayname: Restore
-task: DotNetCoreCLI@2
-  inputs:
-    command: restore
-    arguments: '--configuration $(buildConfiguration)'
-
-- environment: |
-displayname: Build
-task: DotNetCoreCLI@2
-inputs:
-  command: build
-  arguments: '--configuration $(buildConfiguration)'
-
-- environment: |
-displayname: Tests
-task: DotNetCoreCLI@2
-inputs:
-  command: test
-  projects: '**/*Tests/*.csproj'
-  arguments: '--configuration $(buildConfiguration)'
+- script: dotnet restore --configuration $(buildConfiguration)
+  displayName: Restore
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: Build
+  - script: dotnet test --configuration $(buildConfiguration)
+  displayName: Test
