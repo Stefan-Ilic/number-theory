@@ -14,5 +14,9 @@ steps:
   displayName: Restore
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: Build
-- script: dotnet test
+- script: dotnet test <test-project> --logger trx
   displayName: Test
+- task: PublishTestResults@2
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
