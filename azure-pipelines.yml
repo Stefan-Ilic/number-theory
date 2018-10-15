@@ -3,16 +3,17 @@
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-pipeline:
-- name: master-windows
-- trigger: master
-- pool:
-  vmImage: 'vs2017-win2016'
+name: Build-A-Math
+jobs:
+- job: master-windows
+  trigger: master
+  pool:
+    vmImage: 'vs2017-win2016'
 
-- variables:
-  buildConfiguration: 'Release'
+  variables:
+    buildConfiguration: 'Release'
 
-- steps:
+  steps:
   - script: dotnet restore
     displayName: Restore
   - script: dotnet build --configuration $(buildConfiguration)
