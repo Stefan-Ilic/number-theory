@@ -1,20 +1,28 @@
-# Build ASP.NET Core project using Azure Pipelines
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 pool:
   vmImage: 'Ubuntu 16.04'
-  
+
 variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet test --configuration $(buildConfiguration) --logger trx
-    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
-- task: PublishTestResults@2
+  - task: DotNetCoreCLI@2
+  displayname: Restore
+    inputs:
+      command: restore
+      arguments: '--configuration $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+  displayname: Build
   inputs:
-    testRunner: VSTest
-    testResultsFiles: '**/*.trx'
-
-- task: PublishBuildArtifacts@1
+    command: build
+    arguments: '--configuration $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+  displayname: Tests
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
