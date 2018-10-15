@@ -5,11 +5,11 @@
 
 name: Build-A-Math
 jobs:
-- job: master-windows
-  trigger: master
+- job:
+  displayName: master-windows
+  trigger: [master]
   pool:
     vmImage: 'vs2017-win2016'
-
   variables:
     buildConfiguration: 'Release'
 
