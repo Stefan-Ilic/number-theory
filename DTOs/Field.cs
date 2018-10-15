@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Interfaces;
 
-namespace DTOs
+namespace Models
 {
     public class Field : IField
     {

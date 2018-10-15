@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DTOs;
 using Interfaces;
+using Models;
 using Shouldly;
 using Xunit;
 
-namespace UnitTests
+namespace Tests
 {
     public class PolynomialTests
     {
@@ -17,7 +17,7 @@ namespace UnitTests
         [InlineData("1", 0)]
         [InlineData("x",1)]
         [InlineData("5", 0)]
-        public void Polynomial_Returns_Right_Degree(string literal, int expected)
+        public void Polynomial_Correct_Degree(string literal, int expected)
         {
             var polynomial = new Polynomial(new Field(Set.R), literal);
             polynomial.Degree.ShouldBe(expected);

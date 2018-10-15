@@ -4,7 +4,7 @@ using System.Text;
 using Interfaces;
 using static System.Int32;
 
-namespace DTOs
+namespace Models
 {
     public class Polynomial : IPolynomial
     {
