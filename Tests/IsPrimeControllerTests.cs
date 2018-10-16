@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using DTOs;
+﻿using DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.DataAnnotations.Internal;
 using Service.Controllers;
 using Shouldly;
 using Xunit;
