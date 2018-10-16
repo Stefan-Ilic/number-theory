@@ -8,5 +8,6 @@ namespace Interfaces
     {
         bool? IsPrime(int numberToTest);
         int LargestTestedNumber { get; set; }
-    }
+        void AddNewPrimeNumber(int newPrime);
+    }  
 }

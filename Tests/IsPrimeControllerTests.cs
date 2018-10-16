@@ -6,12 +6,11 @@ using Microsoft.AspNetCore.Mvc.DataAnnotations.Internal;
 using Service.Controllers;
 using Shouldly;
 using Xunit;
-using static System.Int32;
-
 namespace Tests
 {
     public class IsPrimeControllerTests
     {
+        //TODO do we really need theories here?
         [Theory]
         [InlineData(2)]
         [InlineData(3)]
@@ -48,14 +47,13 @@ namespace Tests
             primeResult.Result.ShouldBe(false);
         }
 
-        [Theory]
-        [InlineData(100)]
-        public void IsPrime_UnknownNumber_404(int numberToTest)
+        [Fact]
+        public void IsPrime_UnknownNumber_404()
         {
-            var mockdal = new MockDal { LargestTestedNumber = numberToTest - 1 };
+            var mockdal = new MockDal { LargestTestedNumber = 100 - 1 };
             var controller = new IsPrimeController(mockdal);
 
-            var result = controller.IsPrime(numberToTest);
+            var result = controller.IsPrime(100);
 
             result.ShouldNotBeNull();
             var objectResult = result.ShouldBeOfType<NotFoundResult>();

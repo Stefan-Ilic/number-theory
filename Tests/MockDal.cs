@@ -20,5 +20,9 @@ namespace Tests
         }
 
         public int LargestTestedNumber { get; set; } = 1500;
+        public void AddNewPrimeNumber(int newPrime)
+        {
+            _primeNumbers.Add(newPrime);
+        }
     }
 }
