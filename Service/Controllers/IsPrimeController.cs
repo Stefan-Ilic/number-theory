@@ -25,7 +25,7 @@ namespace Service.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public IActionResult IsPrime(int number)
+        public IActionResult IsPrime(long number)
         {
             var result = _dal.IsPrime(number);
             if (result == null)
