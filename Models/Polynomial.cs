@@ -8,16 +8,32 @@ namespace Models
 {
     public class Polynomial
     {
-        public Polynomial(IField field, string literal)
+        public Polynomial(Field field, string literal)
         {
             Field = field;
             var coefficientsWithExponents = literal.Split('+');
             foreach (var coefficientsWithExponent in coefficientsWithExponents)
             {
                 var exponentCoefficient = coefficientsWithExponent.Split('^');
-                _exponentsCoefficients.Add(GetExponent(exponentCoefficient)
+
+                AddToExponentsCoefficients(
+                    GetExponent(exponentCoefficient)
                     , GetCoefficient(exponentCoefficient));
+
+
+                //_exponentsCoefficients.Add(GetExponent(exponentCoefficient)
+                //    , GetCoefficient(exponentCoefficient));
             }
+        }
+
+        private void AddToExponentsCoefficients(int exponent, int coefficient)
+        {
+            if (_exponentsCoefficients.ContainsKey(exponent))
+            {
+                _exponentsCoefficients[exponent] += coefficient;
+                return;
+            }
+            _exponentsCoefficients.Add(exponent, coefficient);
         }
 
 
@@ -50,7 +66,7 @@ namespace Models
             }
         }
 
-        public IField Field { get; }
+        public Field Field { get; }
         public int Degree => _exponentsCoefficients.Keys.OrderByDescending(i => i).ToArray()[0];
         public string HexadecimalRepresentation { get; } = "";
         public string BinaryRepresentation { get; } = "";
@@ -71,6 +87,23 @@ namespace Models
             var coefficientWithoutVariable = coefficientWithExponent[0].TrimEnd('x');
             TryParse(coefficientWithoutVariable, out var coefficient);
             return coefficientWithoutVariable == "" ? 1 : coefficient;
+        }
+
+        public static Polynomial operator+ (Polynomial a, Polynomial b)
+        {
+            foreach (var pair in b._exponentsCoefficients)
+            {
+                if (a._exponentsCoefficients.ContainsKey(pair.Key))
+                {
+                    a._exponentsCoefficients[pair.Key] += pair.Value;
+                }
+                else
+                {
+                    a._exponentsCoefficients.Add(pair.Key, pair.Value);
+                }
+            }
+
+            return a;
         }
     }
 }
