@@ -6,6 +6,7 @@ using static System.Int32;
 
 namespace Models
 {
+    //TODO minus
     public class Polynomial
     {
         public Polynomial(Field field, string literal)

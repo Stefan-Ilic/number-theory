@@ -21,11 +21,11 @@ namespace Service.Controllers
         private readonly IDataAccessLayer _dal;
 
         [HttpGet("{number}")]
-        [Produces(typeof(IsPrimeResult))]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public IActionResult IsPrime(long number)
+        [Produces(typeof(IsPrimeResult))]
+        public IActionResult IsPrime([FromRoute] long number)
         {
             var result = _dal.IsPrime(number);
             if (result == null)
