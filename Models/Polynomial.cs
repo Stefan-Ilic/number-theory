@@ -6,7 +6,7 @@ using static System.Int32;
 
 namespace Models
 {
-    public class Polynomial : IPolynomial
+    public class Polynomial
     {
         public Polynomial(IField field, string literal)
         {
@@ -21,11 +21,40 @@ namespace Models
         }
 
 
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            foreach (var pair in _exponentsCoefficients.Reverse())
+            {
+                builder.Append(GetSimplePolynomial(pair.Key, pair.Value)).Append("+");
+            }
+            builder.Length--;
+            return builder.ToString();
+        }
+
+        private static string GetSimplePolynomial(int exponent, int coefficient)
+        {
+            if (coefficient == 1 && exponent == 0) { return "1"; }
+            var builder = new StringBuilder();
+            builder.Append(coefficient == 1 ? "" : coefficient.ToString());
+            switch (exponent)
+            {
+                case 0:
+                    return builder.ToString();
+                case 1:
+                    builder.Append("x");
+                    return builder.ToString();
+                default:
+                    builder.Append("x^").Append(exponent);
+                    return builder.ToString();
+            }
+        }
+
         public IField Field { get; }
         public int Degree => _exponentsCoefficients.Keys.OrderByDescending(i => i).ToArray()[0];
-        public string HexadecimalRepresentation { get; }
-        public string BinaryRepresentation { get; }
-        private readonly Dictionary<int, int> _exponentsCoefficients = new Dictionary<int, int>();
+        public string HexadecimalRepresentation { get; } = "";
+        public string BinaryRepresentation { get; } = "";
+        private readonly SortedDictionary<int, int> _exponentsCoefficients = new SortedDictionary<int, int>();
 
         private static int GetExponent(IReadOnlyList<string> coefficientWithExponent)
         {
