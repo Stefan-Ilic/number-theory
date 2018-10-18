@@ -75,9 +75,9 @@ namespace Models
 
         private static int GetExponent(IReadOnlyList<string> coefficientWithExponent)
         {
-            if (coefficientWithExponent.Count != 2)
+            if (coefficientWithExponent.Count == 1)
             {
-                return coefficientWithExponent[0].TrimEnd('x') == "" ? 1 : 0;
+                return coefficientWithExponent[0].Contains("x") ? 1 : 0;
             }
             TryParse(coefficientWithExponent[1], out var exponent);
             return exponent;
@@ -103,7 +103,6 @@ namespace Models
                     a._exponentsCoefficients.Add(pair.Key, pair.Value);
                 }
             }
-
             return a;
         }
     }

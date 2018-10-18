@@ -17,6 +17,7 @@ namespace Tests
         [InlineData("x", "x^2", "x^2+x")]
         [InlineData("5", "5", "10")]
         [InlineData("0", "0", "0")]
+        [InlineData("2x", "2x", "4x")]
         public void Add_ValidInputPolynomial_200CorrectOutputPolynomial(
             string inputA, string inputB, string expectedOutput)
         {

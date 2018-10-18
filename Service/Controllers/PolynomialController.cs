@@ -22,11 +22,11 @@ namespace Service.Controllers
         [Produces(typeof(DTOs.Polynomial))]
         public IActionResult Add([FromRoute] string polynomialA, string polynomialB)
         {
-            //TODO hacky and stupid, use regex instead
-            if (((polynomialA + "+" + polynomialB).Split('+')).Any(subExpression => !Regex.Match(subExpression, @"^(([0-9]*x\^[0-9]*)|(x)|([0-9]*)|(x\^([0-9]*)))$").Success))
+            if (!Validate(polynomialA) || !Validate(polynomialB))
             {
                 return BadRequest();
             }
+            
             var a = new Models.Polynomial(new Field(Set.R), polynomialA);
             var b = new Models.Polynomial(new Field(Set.R), polynomialB);
 
@@ -36,6 +36,13 @@ namespace Service.Controllers
             };
 
             return Ok(returnPolynomial);
+        }
+
+        private static bool Validate(string polynomial)
+        {
+            const string pattern = @"^((((-?)[0-9]+)|(x)|((-)?[0-9]*x)|(-?[0-9]*x\^[0-9]+))\+?)*(((-?)[0-9]+)|(x)|((-)?[0-9]*x)|(-?[0-9]*x\^[0-9]+))$";
+
+            return Regex.Match(polynomial, pattern).Success;
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Tests
         [InlineData("x",1)]
         [InlineData("5", 0)]
         [InlineData("0", 0)]
+        [InlineData("4x", 1)]
         public void Degree(string literal, int expected)
         {
             var polynomial = new Polynomial(new Field(Set.R), literal);
@@ -51,6 +52,7 @@ namespace Tests
         [InlineData("x", "x^2", "x^2+x")]
         [InlineData("5", "5", "10")]
         [InlineData("0", "0", "0")]
+        [InlineData("2x", "2x", "4x")]
         public void Addition(string polynomialA, string polynomialB, string result)
         {
             var a = GetRealPolynomial(polynomialA);
