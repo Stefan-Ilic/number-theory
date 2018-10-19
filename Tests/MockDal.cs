@@ -19,8 +19,8 @@ namespace Tests
             return _primeNumbers.Contains(numberToTest);
         }
 
-        public int LargestTestedNumber { get; set; } = 1500;
-        public void AddNewPrimeNumber(int newPrime)
+        public long LargestTestedNumber { get; set; } = 1500;
+        public void AddNewPrimeNumber(long newPrime)
         {
             _primeNumbers.Add(newPrime);
         }

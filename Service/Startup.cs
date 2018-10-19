@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -18,10 +19,15 @@ namespace Service
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+
+            HostingEnvironment = env;
         }
+
+
+        public IHostingEnvironment HostingEnvironment { get; set; }
 
         public IConfiguration Configuration { get; }
 
@@ -45,6 +51,14 @@ namespace Service
                         },
                     });
                 });
+
+            if (HostingEnvironment.IsDevelopment())
+            {
+                services.AddSingleton<IDataAccessLayer>(s => new DevDal(Configuration.GetConnectionString("StefansLocalSqlite")));
+            }
+            else
+            {
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

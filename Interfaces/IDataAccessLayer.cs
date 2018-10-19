@@ -7,7 +7,7 @@ namespace Interfaces
     public interface IDataAccessLayer
     {
         bool? IsPrime(long numberToTest);
-        int LargestTestedNumber { get; set; }
-        void AddNewPrimeNumber(int newPrime);
+        long LargestTestedNumber { get; set; }
+        void AddNewPrimeNumber(long newPrime);
     }  
 }
