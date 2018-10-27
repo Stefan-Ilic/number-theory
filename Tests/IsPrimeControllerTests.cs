@@ -43,18 +43,5 @@ namespace Tests
             var primeResult = objectResult.Value.ShouldBeOfType<IsPrimeResult>();
             primeResult.Result.ShouldBe(false);
         }
-
-        [Fact]
-        public void IsPrime_UnknownNumber_404()
-        {
-            var mockdal = new MockDal { LargestTestedNumber = 100 - 1 };
-            var controller = new IsPrimeController(mockdal);
-
-            var result = controller.IsPrime(100);
-
-            result.ShouldNotBeNull();
-            var objectResult = result.ShouldBeOfType<NotFoundResult>();
-            objectResult.StatusCode.ShouldBe(404);
-        }
     }
 }

@@ -27,12 +27,21 @@ namespace Service.Controllers
         [Produces(typeof(IsPrimeResult))]
         public IActionResult IsPrime([FromRoute] long number)
         {
-            var result = _dal.IsPrime(number);
-            if (result == null)
+            return Ok(new IsPrimeResult {Result = IsPrimeCheck(number)});
+        }
+
+        private static bool IsPrimeCheck(long numbertocheck)
+        {
+            if (numbertocheck <= 1) return false;
+            if (numbertocheck == 2) return true;
+
+            var limit = Math.Ceiling(Math.Sqrt(numbertocheck));
+
+            for (var i = 2; i <= limit; i++)
             {
-                return NotFound();
+                if (numbertocheck % i == 0) return false;
             }
-            return Ok(new IsPrimeResult{Result = result.Value});
+            return true;
         }
     }
 }
