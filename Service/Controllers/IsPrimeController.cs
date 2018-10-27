@@ -13,13 +13,6 @@ namespace Service.Controllers
     [ApiController]
     public class IsPrimeController : ControllerBase
     {
-        public IsPrimeController(IDataAccessLayer dal)
-        {
-            _dal = dal;
-        }
-
-        private readonly IDataAccessLayer _dal;
-
         [HttpGet("{number}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]

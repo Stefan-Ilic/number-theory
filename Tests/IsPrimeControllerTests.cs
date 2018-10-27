@@ -14,8 +14,7 @@ namespace Tests
         [InlineData(23)]
         public void IsPrime_KnownPrimeNumber_200True(int numberToTest)
         {
-            var mockdal = new MockDal {LargestTestedNumber = numberToTest + 1};
-            var controller = new IsPrimeController(mockdal);
+            var controller = new IsPrimeController();
 
             var result = controller.IsPrime(numberToTest);
 
@@ -32,8 +31,7 @@ namespace Tests
         [InlineData(20)]
         public void IsPrime_KnownNotPrimeNumber_200False(int numberToTest)
         {
-            var mockdal = new MockDal { LargestTestedNumber = numberToTest + 1 };
-            var controller = new IsPrimeController(mockdal);
+            var controller = new IsPrimeController();
 
             var result = controller.IsPrime(numberToTest);
 
